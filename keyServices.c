@@ -96,14 +96,14 @@ void initSeg() {
 	digitalWrite(ROW3, 0);
 }
 
-int buttonKey() {
+int buttonKey() { // Return the number of pressed key.
 	
 	int i, j, key;
 	
 	key = -1;
-	for(i = 0; i < 3; i++) {
+	for(i = 0; i < 3; i++) { // Select the row.
 		digitalWrite(bROW[i], 1);
-		for(j = 0; j < 3; j++) {
+		for(j = 0; j < 3; j++) { // Read the column.
 			if(digitalRead(bCOL[j]) == 1)
 				if(i == 0 && j == 0)
 					key = 0;
@@ -135,6 +135,7 @@ int main() {
 	int cnt = 0;
 
 	while(1) {
+		// Display "0000" when raspberry pi booted up.
 		if(cnt == 0) {
 			digitalWrite(ROW0, 1);
 			digitalWrite(ROW1, 0);
@@ -160,18 +161,21 @@ int main() {
 			digitalWrite(ROW3, 1);
 		}
 		if(buttonKey() == 0) {
+			// Press key 'A': reboot raspberry pi.
 			init();
 			initSeg();
 			system("shutdown -r now");
 			return 0;
 		}
 		else if(buttonKey() == 2) {
+			// Press key 'D': shutdown raspberry pi.
 			init();
 			initSeg();
 			system("shutdown -h now");
 			return 0;
 		}
 		else if(buttonKey() != -1) {
+			// Press any arrow key: start game - calling the program "LED2048".
 			system("/home/pi/Desktop/LED2048");
 			return 0;
 		}
