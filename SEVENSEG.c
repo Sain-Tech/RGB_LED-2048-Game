@@ -8,7 +8,7 @@
 
 int tmpnum;
 
-int num[10][4] = {
+int num[10][4] = { // Binary digit data for Seven Segment Display decoder: 74LS47, 74LS247.
 	{0, 0, 0, 0},
 	{0, 0, 0, 1}, 
 	{0, 0, 1, 0}, 
@@ -26,21 +26,21 @@ int num[10][4] = {
 	{1, 1, 1, 0}, 
 	{1, 1, 1, 1}};
 
-void setSegment(int value) {
+void setSegment(int value) { // Convert number to binary digit.
 	digitalWrite(A0, num[value][3]);
 	digitalWrite(A1, num[value][2]);
 	digitalWrite(A2, num[value][1]);
 	digitalWrite(A3, num[value][0]);
 }
 
-void initSeg() {
+void initSeg() { // Initialize pin for Seven Segment Display.
 	pinMode(A0, OUTPUT);
 	pinMode(A1, OUTPUT);
 	pinMode(A2, OUTPUT);
 	pinMode(A3, OUTPUT);
 }
 
-void setDigit(int value, int col) {
+void setDigit(int value, int col) { // Divide number to each digit.
 	if(col == 0) {
 		setSegment(value / 1000);
 		tmpnum = value % 1000;
